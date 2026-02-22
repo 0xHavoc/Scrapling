@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scrapling Job Runner</title>
+</head>
+<body>
+  <h1>Scrapling Job Runner</h1>
+
+  <form id="job-form">
+    <label>
+      URL
+      <input type="url" id="url" required placeholder="https://example.com" />
+    </label>
+    <label>
+      Extraction
+      <select id="extraction_type">
+        <option value="markdown">markdown</option>
+        <option value="html">html</option>
+        <option value="text">text</option>
+      </select>
+    </label>
+    <button type="submit">Start Job</button>
+  </form>
+
+  <p id="job-id"></p>
+  <pre id="status"></pre>
+  <pre id="result"></pre>
+
+  <script src="./app.js"></script>
+</body>
+</html>
