@@ -8,6 +8,7 @@ from scrapling.core.utils._shell import _CookieParser, _ParseHeaders
 from scrapling.core._types import List, Optional, Dict, Tuple, Any, Callable
 
 from orjson import loads as json_loads, JSONDecodeError
+from scrapling.web import web
 
 try:
     from click import command, option, Choice, group, argument
@@ -824,3 +825,4 @@ main.add_command(install)
 main.add_command(shell)
 main.add_command(extract)
 main.add_command(mcp)
+main.add_command(web)
