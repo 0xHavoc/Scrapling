@@ -94,7 +94,7 @@ class SyncSession:
             ctx.add_init_script(path=config.init_script)
 
         if config.cookies:  # pragma: no cover
-            ctx.add_cookies(config.cookies)
+            ctx.add_cookies(list(config.cookies))
 
         return ctx
 
@@ -251,7 +251,7 @@ class AsyncSession:
             await ctx.add_init_script(path=config.init_script)
 
         if config.cookies:  # pragma: no cover
-            await ctx.add_cookies(config.cookies)
+            await ctx.add_cookies(list(config.cookies))
 
         return ctx
 

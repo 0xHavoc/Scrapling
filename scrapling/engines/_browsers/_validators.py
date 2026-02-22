@@ -56,7 +56,7 @@ RetriesCount = Annotated[int, Meta(ge=1, le=10)]
 Seconds = Annotated[int, float, Meta(ge=0)]
 
 
-class PlaywrightConfig(Struct, kw_only=True, frozen=False, weakref=True):
+class PlaywrightConfig(Struct, kw_only=True, frozen=False, weakref=True):  # type: ignore[call-arg]
     """Configuration struct for validation"""
 
     max_pages: PagesCount = 1
@@ -119,7 +119,7 @@ class PlaywrightConfig(Struct, kw_only=True, frozen=False, weakref=True):
                 raise ValueError(validation_msg)
 
 
-class StealthConfig(PlaywrightConfig, kw_only=True, frozen=False, weakref=True):
+class StealthConfig(PlaywrightConfig, kw_only=True, frozen=False, weakref=True):  # type: ignore[call-arg]
     allow_webgl: bool = True
     hide_canvas: bool = False
     block_webrtc: bool = False
