@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+from typing import cast
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException, Response
 from pydantic import BaseModel, Field
@@ -27,15 +28,18 @@ def _run_scrape(job_id: str) -> None:
 
     try:
         page = Fetcher.get(job.config["url"])
+        content: str | list[str]
         if job.config["extraction_type"] == "html":
             content = page.html_content
         elif job.config["extraction_type"] == "text":
             content = page.text
         else:
-            content = page.markdown
+            from markdownify import markdownify
+
+            content = markdownify(cast(str, page.html_content))
 
         if job.config.get("css_selector"):
-            content = [element.get() for element in page.css(job.config["css_selector"])]
+            content = [cast(str, element.get()) for element in page.css(job.config["css_selector"])]
 
         job_manager.complete_job(
             job_id,

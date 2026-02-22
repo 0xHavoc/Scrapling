@@ -128,6 +128,8 @@ check_untyped_defs = true
 [tool.pyright]
 pythonVersion = "3.10"
 typeCheckingMode = "basic"
+reportMissingImports = "none"
+reportMissingModuleSource = "none"
 include = ["scrapling"]
 ignore = ["tests", "benchmarks.py"]
 [tool.setuptools.package-data]
