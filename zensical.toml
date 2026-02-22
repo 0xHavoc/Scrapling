@@ -46,6 +46,9 @@ nav = [
         ]},
         {Integrations = [
             {"AI MCP server" = "ai/mcp-server.md"}
+        ]},
+        {"Web UI" = [
+            {"Deployment overview" = "web-ui/overview.md"}
         ]}
     ]},
     {Tutorials = [
