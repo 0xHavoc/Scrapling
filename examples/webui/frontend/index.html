@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrapling Web UI</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Scrapling Web UI</h1>
+        <p>Fetch a page, extract data, and inspect request details.</p>
+      </header>
+
+      <section class="card">
+        <form id="scrape-form" novalidate>
+          <div class="grid two">
+            <label>
+              URL
+              <input id="url" name="url" type="url" placeholder="https://example.com" required />
+            </label>
+
+            <label>
+              Fetcher Type
+              <select id="fetcher" name="fetcher">
+                <option value="requests" selected>requests</option>
+                <option value="dynamic">dynamic</option>
+                <option value="stealth">stealth</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="grid two">
+            <label>
+              Timeout (ms)
+              <input id="timeout" name="timeout" type="number" min="1" step="1" value="10000" required />
+            </label>
+
+            <label>
+              Selector
+              <input id="selector" name="selector" type="text" placeholder="e.g. title" />
+            </label>
+          </div>
+
+          <div class="grid three">
+            <label>
+              Headers (JSON object)
+              <textarea id="headers" name="headers" rows="5" placeholder='{"User-Agent":"MyBot/1.0"}'></textarea>
+            </label>
+
+            <label>
+              Cookies (JSON object)
+              <textarea id="cookies" name="cookies" rows="5" placeholder='{"session":"abc123"}'></textarea>
+            </label>
+
+            <label>
+              Params (JSON object)
+              <textarea id="params" name="params" rows="5" placeholder='{"q":"scrapling"}'></textarea>
+            </label>
+          </div>
+
+          <div id="validation-error" class="error hidden" role="alert"></div>
+
+          <div class="actions">
+            <button id="run-btn" type="submit">Run</button>
+            <span id="status" class="status">Idle</span>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <nav class="tabs" aria-label="Output tabs">
+          <button type="button" class="tab active" data-tab="extracted">Extracted Data</button>
+          <button type="button" class="tab" data-tab="raw">Raw HTML/Text</button>
+          <button type="button" class="tab" data-tab="logs">Request Logs</button>
+        </nav>
+
+        <div class="toolbar">
+          <button id="copy-btn" type="button">Copy</button>
+          <button id="download-btn" type="button">Download</button>
+        </div>
+
+        <article id="panel-extracted" class="panel active" aria-live="polite">
+          <pre id="output-extracted">No results yet.</pre>
+        </article>
+        <article id="panel-raw" class="panel" aria-live="polite">
+          <pre id="output-raw">No raw content yet.</pre>
+        </article>
+        <article id="panel-logs" class="panel" aria-live="polite">
+          <pre id="output-logs">No logs yet.</pre>
+        </article>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
