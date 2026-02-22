@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scrapling Web UI</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; max-width: 980px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    textarea { width: 100%; min-height: 220px; }
+    input, select, button { padding: 8px; }
+    .full { grid-column: 1 / -1; }
+  </style>
+</head>
+<body>
+  <h1>Scrapling Web UI</h1>
+  <div class="grid">
+    <input id="url" class="full" placeholder="https://example.com" />
+    <select id="fetcher">
+      <option value="http">Fetcher (HTTP)</option>
+      <option value="dynamic">DynamicFetcher</option>
+      <option value="stealthy">StealthyFetcher</option>
+    </select>
+    <select id="method">
+      <option>GET</option>
+      <option>POST</option>
+      <option>PUT</option>
+      <option>DELETE</option>
+    </select>
+    <input id="selector" placeholder="Optional CSS selector (.item)" />
+    <button id="run">Run</button>
+    <pre id="meta" class="full"></pre>
+    <textarea id="extracted" placeholder="Extracted results"></textarea>
+    <textarea id="html" placeholder="Raw HTML"></textarea>
+  </div>
+  <script>
+    const runButton = document.getElementById('run');
+    runButton.addEventListener('click', async () => {
+      const payload = {
+        url: document.getElementById('url').value,
+        fetcher: document.getElementById('fetcher').value,
+        method: document.getElementById('method').value,
+        css_selector: document.getElementById('selector').value || null,
+      };
+
+      document.getElementById('meta').textContent = 'Loading...';
+      const resp = await fetch('/api/fetch', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        document.getElementById('meta').textContent = `Error: ${data.detail || resp.statusText}`;
+        return;
+      }
+
+      document.getElementById('meta').textContent = JSON.stringify({
+        status: data.status,
+        url: data.url,
+        elapsed_ms: data.elapsed_ms,
+      }, null, 2);
+      document.getElementById('extracted').value = JSON.stringify(data.extracted || [], null, 2);
+      document.getElementById('html').value = data.html;
+    });
+  </script>
+</body>
+</html>
