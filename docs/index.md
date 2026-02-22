@@ -189,6 +189,10 @@ This image is automatically built and pushed using GitHub Actions and the reposi
 ## How the documentation is organized
 Scrapling has extensive documentation, so we try to follow the [Diátaxis documentation framework](https://diataxis.fr/).
 
+## Web UI deployment docs
+
+If you're building a backend + frontend interface on top of Scrapling, see the [Web UI Deployment Overview](web-ui/overview.md) page for install, local development, Docker Compose, and production hardening guidance.
+
 ## Support
 
 If you like Scrapling and want to support its development:
